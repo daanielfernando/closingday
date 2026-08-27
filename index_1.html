@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Closing Day · Solturi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#080F1C;
+  --painel:#0E1829;
+  --borda:#1C2B44;
+  --celula-apagada:#152238;
+  --texto:#EAF0F9;
+  --mute:#77879F;
+  --laranja:#FF6A13;
+  --ambar:#FFC72C;
+  --lima:#B4D62E;
+  --verde:#17C964;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:
+    radial-gradient(1100px 620px at 12% -12%, rgba(255,106,19,.16), transparent 62%),
+    radial-gradient(900px 560px at 92% 6%, rgba(23,201,100,.11), transparent 60%),
+    var(--noite);
+  color:var(--texto);
+  font-family:"Inter Tight",system-ui,sans-serif;
+  min-height:100vh;
+  padding:28px 20px 64px;
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* ---------- cabecalho ---------- */
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:34px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--laranja);margin-bottom:10px;
+  display:flex;align-items:center;gap:9px;
+}
+.eyebrow .pisca{width:7px;height:7px;border-radius:50%;background:var(--laranja);
+  box-shadow:0 0 0 0 rgba(255,106,19,.65);animation:pulso 2.1s infinite}
+@keyframes pulso{70%{box-shadow:0 0 0 11px rgba(255,106,19,0)}100%{box-shadow:0 0 0 0 rgba(255,106,19,0)}}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(34px,5.6vw,58px);
+  line-height:.95;letter-spacing:-.03em}
+h1 em{font-style:normal;color:var(--mute)}
+.carimbo{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mute);text-align:right;line-height:1.7}
+.carimbo b{color:var(--texto);font-weight:500}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px;align-items:stretch}
+.card{background:var(--painel);border:1px solid var(--borda);border-radius:18px;padding:24px}
+.rotulo{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--mute)}
+
+/* painel fotovoltaico */
+.legenda-painel{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+.grade{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.celula{aspect-ratio:1;border-radius:4px;background:var(--celula-apagada);
+  border:1px solid rgba(255,255,255,.045);position:relative;overflow:hidden;
+  transform:scale(.55);opacity:0;transition:transform .42s cubic-bezier(.2,1.4,.4,1),opacity .42s}
+.celula.entrou{transform:scale(1);opacity:1}
+.celula .luz{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.celula.acesa .luz{opacity:1}
+.escala{display:flex;align-items:center;gap:10px;margin-top:16px;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--mute)}
+.escala .barra{flex:1;height:5px;border-radius:3px;
+  background:linear-gradient(90deg,var(--laranja),var(--ambar),var(--lima),var(--verde))}
+
+/* numeros */
+.numeros{display:flex;flex-direction:column;gap:14px}
+.destaque{background:var(--painel);border:1px solid var(--borda);border-radius:18px;padding:24px;flex:1;
+  display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.destaque::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--laranja)}
+.pct{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:clamp(52px,9vw,84px);line-height:.88;letter-spacing:-.04em;color:var(--laranja)}
+.pct span{font-size:.38em;color:var(--mute);margin-left:6px}
+.falta{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:clamp(26px,4.4vw,38px);
+  letter-spacing:-.02em;margin-top:6px}
+.sub{color:var(--mute);font-size:13.5px;margin-top:9px;line-height:1.5}
+.sub b{color:var(--texto);font-weight:600}
+.mini{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mini .card{padding:18px}
+.mini .valor{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:21px;margin-top:7px}
+
+/* ---------- ritmo ---------- */
+.ritmo{margin-top:26px}
+.dias{display:flex;gap:10px;align-items:flex-end;height:110px;margin-top:18px}
+.dia{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;text-align:center;min-width:0}
+.dia .col{border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,var(--ambar),var(--laranja));
+  height:0;transition:height .9s cubic-bezier(.2,.8,.3,1)}
+.dia .col.vazio{background:repeating-linear-gradient(45deg,var(--celula-apagada),var(--celula-apagada) 5px,transparent 5px,transparent 10px);
+  border:1px dashed var(--borda);min-height:8px}
+.dia .rot{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--mute);white-space:nowrap}
+.dia .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--texto)}
+
+/* ---------- ranking ---------- */
+.ranking{margin-top:38px}
+.barra-titulo{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:18px}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em}
+h2 + .rotulo{margin-top:5px}
+.controles{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:transparent;border:1px solid var(--borda);color:var(--mute);border-radius:999px;
+  padding:7px 13px;font-family:"IBM Plex Mono",monospace;font-size:11px;cursor:pointer;
+  transition:.16s;letter-spacing:.03em}
+.chip:hover{border-color:var(--laranja);color:var(--texto)}
+.chip[aria-pressed="true"]{background:var(--laranja);border-color:var(--laranja);color:#14100B;font-weight:600}
+.chip:focus-visible{outline:2px solid var(--ambar);outline-offset:2px}
+
+table{width:100%;border-collapse:collapse;background:var(--painel);border:1px solid var(--borda);
+  border-radius:18px;overflow:hidden}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mute);text-align:left;padding:15px 18px;border-bottom:1px solid var(--borda);font-weight:500;white-space:nowrap}
+th.dir,td.dir{text-align:right}
+td{padding:14px 18px;border-bottom:1px solid rgba(28,43,68,.55);font-size:14.5px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(255,106,19,.05)}
+.pos{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--mute);width:46px}
+tr.podio .pos{color:var(--ambar);font-weight:600}
+.nome{font-weight:600}
+.time-tag{display:inline-block;margin-top:3px;font-family:"IBM Plex Mono",monospace;font-size:10px;
+  color:var(--mute);letter-spacing:.06em}
+.qtd{font-family:"IBM Plex Mono",monospace;font-size:15px}
+.val{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;white-space:nowrap}
+.trilho{height:4px;border-radius:3px;background:var(--celula-apagada);margin-top:7px;overflow:hidden;min-width:70px}
+.trilho i{display:block;height:100%;width:0;border-radius:3px;
+  background:linear-gradient(90deg,var(--laranja),var(--ambar));transition:width .8s ease}
+tr.podio .trilho i{background:linear-gradient(90deg,var(--ambar),var(--verde))}
+.vazio-msg{padding:26px 18px;color:var(--mute);font-size:14px}
+
+footer{margin-top:34px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--mute);line-height:1.8}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .grade{gap:4px}
+  th:nth-child(3),td:nth-child(3){display:none}
+}
+@media (max-width:520px){
+  body{padding:20px 14px 48px}
+  .carimbo{text-align:left}
+  .mini{grid-template-columns:1fr}
+  .dias{height:88px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .celula{transform:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow"><span class="pisca"></span><span id="eyebrow-periodo">Closing day</span> · times SC</div>
+      <h1>Acender o painel<br><em>vale voucher em dobro</em></h1>
+    </div>
+    <div class="carimbo">
+      Meta <b>R$ 4.000.000</b><br>
+      Sem Titãs dos Pampas<br>
+      Atualizado <b id="carimbo-data">—</b>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="card">
+      <div class="legenda-painel">
+        <div>
+          <div class="rotulo">O painel da meta</div>
+          <div class="sub" style="margin-top:6px">Cada célula vale <b>R$ 40 mil</b>. Acenda as 100 e o voucher dobra.</div>
+        </div>
+        <div class="rotulo" id="contador-celulas">—</div>
+      </div>
+      <div class="grade" id="grade" aria-label="Progresso da meta em 100 células"></div>
+      <div class="escala">
+        <span>largada</span><span class="barra"></span><span>meta batida</span>
+      </div>
+    </div>
+
+    <div class="numeros">
+      <div class="destaque">
+        <div class="rotulo">Falta para dobrar o voucher</div>
+        <div class="pct" id="pct">0<span>%</span></div>
+        <div class="falta" id="falta">R$ —</div>
+        <div class="sub">Vendido no closing: <b id="realizado">—</b> · <b id="clientes">—</b> clientes</div>
+      </div>
+      <div class="mini">
+        <div class="card">
+          <div class="rotulo">Dias restantes</div>
+          <div class="valor" id="dias-restantes">—</div>
+        </div>
+        <div class="card">
+          <div class="rotulo">Ritmo necessário/dia</div>
+          <div class="valor" id="ritmo">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card ritmo">
+    <div class="rotulo">Vendas por dia do closing</div>
+    <div class="dias" id="dias"></div>
+  </section>
+
+  <section class="ranking">
+    <div class="barra-titulo">
+      <div>
+        <h2>Quem está puxando o closing</h2>
+        <div class="rotulo">Clientes únicos e valor acumulado no período</div>
+      </div>
+      <div class="controles" id="filtros"></div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="pos">#</th>
+          <th>Vendedor</th>
+          <th class="dir">Clientes únicos</th>
+          <th class="dir">Valor acumulado</th>
+        </tr>
+      </thead>
+      <tbody id="corpo"></tbody>
+    </table>
+  </section>
+
+  <footer id="rodape"></footer>
+</div>
+
+<script>
+const D = {"meta": 4000000.0, "total": 1309871.85, "falta": 2690128.15, "pct": 32.75, "clientes": 71, "vendas": 72, "diasRestantes": 5, "ritmoNecessario": 538025.63, "periodo": "24/08 a 31/08", "atualizado": "27/08/2026 às 12:35", "ranking": [{"nome": "Claudio Ancai Mendes Junior", "time": "Legião Germânica", "clientes": 2, "valor": 141409.0}, {"nome": "Berato Representação", "time": "Comando Solar", "clientes": 9, "valor": 140175.21}, {"nome": "Alexandre Wienen", "time": "Comando Solar", "clientes": 5, "valor": 92652.1}, {"nome": "Diego Vendramin", "time": "Lobos do Sol", "clientes": 4, "valor": 81800.0}, {"nome": "Mario Augusto Freitas", "time": "Tubarões do Sol", "clientes": 2, "valor": 68173.1}, {"nome": "Nelykim Urbanski Barbi", "time": "Tubarões do Sol", "clientes": 3, "valor": 52930.87}, {"nome": "SOLTURI", "time": "SOLTURI", "clientes": 3, "valor": 48100.0}, {"nome": "Wesley Martins", "time": "Comando Solar", "clientes": 2, "valor": 44915.07}, {"nome": "Jaime Ribeiro", "time": "Furacões", "clientes": 1, "valor": 39600.0}, {"nome": "Luis Dalcanale", "time": "Lobos do Sol", "clientes": 2, "valor": 39000.0}, {"nome": "Thiago Parma", "time": "Raios de Fúria", "clientes": 2, "valor": 36962.0}, {"nome": "Ricardo Germano Mahlke", "time": "Furacões", "clientes": 4, "valor": 34324.45}, {"nome": "José Guilherme", "time": "Raios de Fúria", "clientes": 1, "valor": 33750.0}, {"nome": "Edvaldo Jose de Oliveira", "time": "Tubarões do Sol", "clientes": 2, "valor": 32819.59}, {"nome": "Pablo Maciel Eggert", "time": "Tubarões do Sol", "clientes": 2, "valor": 30695.66}, {"nome": "FRANCISCO DE CAMPOS", "time": "Comando Solar", "clientes": 2, "valor": 29965.07}, {"nome": "Cristhian", "time": "Comando Solar", "clientes": 2, "valor": 29459.0}, {"nome": "Gabriel Reina", "time": "Raios de Fúria", "clientes": 2, "valor": 29101.7}, {"nome": "Thomas Vyctor", "time": "Comando Solar", "clientes": 1, "valor": 28370.0}, {"nome": "Master sales", "time": "Lobos do Sol", "clientes": 3, "valor": 27720.0}, {"nome": "Élcio", "time": "Raios de Fúria", "clientes": 2, "valor": 24000.0}, {"nome": "Gustavo Tadra", "time": "Raios de Fúria", "clientes": 1, "valor": 22458.97}, {"nome": "ANDRE LUIS NASCIMENTO", "time": "Tubarões do Sol", "clientes": 1, "valor": 19519.0}, {"nome": "Alexandre Montresol", "time": "Tubarões do Sol", "clientes": 1, "valor": 19000.0}, {"nome": "Gustavo Schunke", "time": "Raios de Fúria", "clientes": 1, "valor": 18405.86}, {"nome": "Marcelo Torman", "time": "Lobos do Sol", "clientes": 2, "valor": 17967.38}, {"nome": "Luís Weiss", "time": "Lobos do Sol", "clientes": 1, "valor": 16487.38}, {"nome": "Everson Urbim", "time": "Furacões", "clientes": 1, "valor": 15800.0}, {"nome": "Paulo Roberto", "time": "Comando Solar", "clientes": 1, "valor": 15572.22}, {"nome": "Gabriel Ticaleah", "time": "Tubarões do Sol", "clientes": 1, "valor": 14637.9}, {"nome": "Danillo Almeida", "time": "Tubarões do Sol", "clientes": 1, "valor": 14373.0}, {"nome": "Edijane Gomes", "time": "Furacões", "clientes": 1, "valor": 13500.0}, {"nome": "Vanderlei", "time": "Furacões", "clientes": 1, "valor": 13500.0}, {"nome": "Dyan", "time": "Lobos do Sol", "clientes": 1, "valor": 12682.06}, {"nome": "Edson Carlos", "time": "Furacões", "clientes": 1, "valor": 10045.26}], "times": [{"nome": "Comando Solar", "clientes": 22, "valor": 381108.67}, {"nome": "Tubarões do Sol", "clientes": 13, "valor": 252149.12}, {"nome": "Lobos do Sol", "clientes": 13, "valor": 195656.82}, {"nome": "Raios de Fúria", "clientes": 9, "valor": 164678.53}, {"nome": "Legião Germânica", "clientes": 2, "valor": 141409.0}, {"nome": "Furacões", "clientes": 9, "valor": 126769.71}, {"nome": "SOLTURI", "clientes": 3, "valor": 48100.0}], "dias": [{"dia": "24/08", "valor": 713361.83}, {"dia": "25/08", "valor": 340684.34}, {"dia": "26/08", "valor": 255825.68}]};
+
+const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const brlFull = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2});
+
+/* --- gradiente laranja -> verde --- */
+const PARADAS=[[255,106,19],[255,199,44],[180,214,46],[23,201,100]];
+function cor(t){
+  t=Math.min(Math.max(t,0),1);
+  const p=t*(PARADAS.length-1), i=Math.min(Math.floor(p),PARADAS.length-2), f=p-i;
+  const a=PARADAS[i], b=PARADAS[i+1];
+  return `rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')})`;
+}
+
+/* --- cabecalho --- */
+document.getElementById('eyebrow-periodo').textContent = 'Closing day ' + D.periodo;
+document.getElementById('carimbo-data').textContent = D.atualizado;
+document.getElementById('falta').textContent = brlFull(D.falta);
+document.getElementById('realizado').textContent = brlFull(D.total);
+document.getElementById('clientes').textContent = D.clientes;
+document.getElementById('dias-restantes').textContent = D.diasRestantes + (D.diasRestantes===1?' dia':' dias');
+document.getElementById('ritmo').textContent = brl(D.ritmoNecessario);
+
+const acesas = D.pct;
+const destaque = document.querySelector('.destaque');
+const pctEl = document.getElementById('pct');
+const corAtual = cor(D.pct/100);
+pctEl.style.color = corAtual;
+destaque.style.setProperty('--laranja', corAtual);
+
+/* --- painel de 100 celulas --- */
+const grade = document.getElementById('grade');
+const cels = [];
+for(let i=0;i<100;i++){
+  const c = document.createElement('div');
+  c.className='celula';
+  c.title = `Célula ${i+1} · ${brl((i+1)*D.meta/100)} acumulados`;
+  const luz = document.createElement('span');
+  luz.className='luz';
+  luz.style.background = cor(i/99);
+  luz.style.boxShadow = `0 0 10px ${cor(i/99)}`;
+  c.appendChild(luz);
+  grade.appendChild(c); cels.push(c);
+}
+const inteiras = Math.floor(acesas);
+requestAnimationFrame(()=>{
+  cels.forEach((c,i)=>setTimeout(()=>{
+    c.classList.add('entrou');
+    if(i<inteiras) c.classList.add('acesa');
+    else if(i===inteiras){
+      const resto = acesas-inteiras;
+      if(resto>0.02){ c.classList.add('acesa'); c.querySelector('.luz').style.clipPath=`inset(${(1-resto)*100}% 0 0 0)`; }
+    }
+  }, 140 + i*9));
+});
+document.getElementById('contador-celulas').textContent =
+  `${Math.round(acesas)} de 100 acesas · faltam ${100-Math.round(acesas)}`;
+
+/* --- % animada --- */
+let n=0; const alvo=D.pct;
+const passo=()=>{ n=Math.min(n+alvo/45,alvo);
+  pctEl.innerHTML = n.toFixed(1).replace('.',',')+'<span>%</span>';
+  if(n<alvo) requestAnimationFrame(passo); };
+requestAnimationFrame(passo);
+
+/* --- vendas por dia --- */
+const diasEl=document.getElementById('dias');
+const mapa = new Map(D.dias.map(d=>[d.dia,d.valor]));
+const [d0,d1]=D.periodo.split(' a ').map(s=>s.split('/').map(Number));
+const todos=[]; let cur=new Date(2026,d0[1]-1,d0[0]); const fim=new Date(2026,d1[1]-1,d1[0]);
+while(cur<=fim){ const k=String(cur.getDate()).padStart(2,'0')+'/'+String(cur.getMonth()+1).padStart(2,'0');
+  todos.push([k,mapa.get(k)||0]); cur.setDate(cur.getDate()+1); }
+const maxDia=Math.max(...todos.map(d=>d[1]),D.ritmoNecessario||1);
+todos.forEach(([k,v],i)=>{
+  const el=document.createElement('div'); el.className='dia';
+  el.innerHTML=`<div class="num">${v?brl(v).replace('R$','').trim():'–'}</div>
+                <div class="col${v?'':' vazio'}"></div><div class="rot">${k}</div>`;
+  diasEl.appendChild(el);
+  if(v) setTimeout(()=>el.querySelector('.col').style.height=Math.max(v/maxDia*100,6)+'%',180+i*70);
+});
+
+/* --- ranking --- */
+const filtros=document.getElementById('filtros'), corpo=document.getElementById('corpo');
+let timeAtivo='Todos';
+const nomesTimes=['Todos',...D.times.map(t=>t.nome)];
+nomesTimes.forEach(t=>{
+  const b=document.createElement('button'); b.className='chip'; b.textContent=t;
+  b.setAttribute('aria-pressed', t===timeAtivo);
+  b.onclick=()=>{ timeAtivo=t;
+    [...filtros.children].forEach(c=>c.setAttribute('aria-pressed', c.textContent===t));
+    desenhar(); };
+  filtros.appendChild(b);
+});
+
+function desenhar(){
+  const lista = timeAtivo==='Todos' ? D.ranking : D.ranking.filter(r=>r.time===timeAtivo);
+  corpo.innerHTML='';
+  if(!lista.length){
+    corpo.innerHTML='<tr><td colspan="4" class="vazio-msg">Nenhuma venda desse time no closing ainda. A primeira acende a próxima célula.</td></tr>';
+    return;
+  }
+  const topo=lista[0].valor;
+  lista.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    if(i<3) tr.className='podio';
+    tr.innerHTML=`
+      <td class="pos">${String(i+1).padStart(2,'0')}</td>
+      <td><div class="nome">${r.nome}</div><div class="time-tag">${r.time}</div></td>
+      <td class="dir qtd">${r.clientes}</td>
+      <td class="dir"><div class="val">${brlFull(r.valor)}</div><div class="trilho"><i></i></div></td>`;
+    corpo.appendChild(tr);
+    setTimeout(()=>tr.querySelector('.trilho i').style.width=(r.valor/topo*100)+'%',60+i*35);
+  });
+}
+desenhar();
+
+document.getElementById('rodape').textContent =
+  `${D.vendas} vendas · ${D.ranking.length} vendedores · ${D.times.length} times · base atualizada em ${D.atualizado}`;
+</script>
+</body>
+</html>

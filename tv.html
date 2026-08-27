@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Closing Day · Solturi · TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter+Tight:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#080F1C; --painel:#0E1829; --borda:#1C2B44; --celula-apagada:#152238;
+  --texto:#EAF0F9; --mute:#8195AE;
+  --laranja:#FF6A13; --ambar:#FFC72C; --lima:#B4D62E; --verde:#17C964;
+  --u:calc(100vh / 100);           /* unidade base: 1% da altura da tela */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:
+    radial-gradient(70vw 60vh at 10% -10%, rgba(255,106,19,.17), transparent 60%),
+    radial-gradient(60vw 55vh at 95% 5%, rgba(23,201,100,.12), transparent 58%),
+    var(--noite);
+  color:var(--texto); font-family:"Inter Tight",system-ui,sans-serif;
+  display:flex; flex-direction:column; padding:calc(var(--u)*3) calc(var(--u)*3.4);
+  gap:calc(var(--u)*2.4);
+}
+.rotulo{font-family:"IBM Plex Mono",monospace;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mute);font-size:calc(var(--u)*1.5)}
+
+/* topo */
+.topo{display:flex;justify-content:space-between;align-items:flex-end;gap:calc(var(--u)*3)}
+.marca{display:flex;align-items:center;gap:calc(var(--u)*1.4);
+  font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*1.9);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--laranja)}
+.pisca{width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:50%;background:var(--laranja);
+  animation:pulso 2.1s infinite}
+@keyframes pulso{0%,100%{opacity:1}50%{opacity:.25}}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:calc(var(--u)*6.4);
+  line-height:.95;letter-spacing:-.03em;margin-top:calc(var(--u)*.9)}
+h1 em{font-style:normal;color:var(--mute)}
+.metatopo{text-align:right;font-family:"IBM Plex Mono",monospace;
+  font-size:calc(var(--u)*1.7);color:var(--mute);line-height:1.8}
+.metatopo b{color:var(--texto);font-weight:500}
+
+/* corpo */
+.corpo{flex:1;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
+  gap:calc(var(--u)*2.6);min-height:0}
+.bloco{background:var(--painel);border:1px solid var(--borda);border-radius:calc(var(--u)*1.6);
+  padding:calc(var(--u)*2.6);display:flex;flex-direction:column;min-height:0}
+
+/* esquerda */
+.placar{display:flex;align-items:flex-end;justify-content:space-between;gap:calc(var(--u)*2)}
+.pct{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:calc(var(--u)*13);
+  line-height:.85;letter-spacing:-.045em;color:var(--laranja)}
+.pct span{font-size:.34em;color:var(--mute);margin-left:.1em}
+.falta-box{text-align:right}
+.falta{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:calc(var(--u)*4.1);
+  letter-spacing:-.02em;margin-top:calc(var(--u)*.5);white-space:nowrap}
+.grade{display:grid;grid-template-columns:repeat(20,1fr);gap:calc(var(--u)*.42);
+  margin-top:calc(var(--u)*2.4)}
+.celula{aspect-ratio:1;border-radius:calc(var(--u)*.3);background:var(--celula-apagada);
+  position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.celula .luz{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.celula.acesa .luz{opacity:1}
+.rodape-esq{margin-top:auto;padding-top:calc(var(--u)*2.2);display:grid;grid-template-columns:repeat(3,1fr);
+  gap:calc(var(--u)*1.6);border-top:1px solid var(--borda)}
+.kpi .num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:calc(var(--u)*2.9);
+  margin-top:calc(var(--u)*.6);white-space:nowrap}
+
+/* direita: ranking */
+.cab-rank{display:flex;justify-content:space-between;align-items:baseline;gap:calc(var(--u)*2);
+  margin-bottom:calc(var(--u)*1.8)}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:calc(var(--u)*3.4);
+  letter-spacing:-.02em}
+.lista{flex:1;display:flex;flex-direction:column;gap:calc(var(--u)*.9);min-height:0}
+.linha{display:grid;grid-template-columns:calc(var(--u)*4.6) 1fr auto auto;align-items:center;
+  gap:calc(var(--u)*1.6);padding:calc(var(--u)*1.05) calc(var(--u)*1.3);
+  border-radius:calc(var(--u)*.9);background:rgba(255,255,255,.022);
+  animation:entra .45s ease both}
+@keyframes entra{from{opacity:0;transform:translateX(calc(var(--u)*1.6))}to{opacity:1;transform:none}}
+.linha.podio{background:rgba(255,199,44,.075);box-shadow:inset calc(var(--u)*.28) 0 0 var(--ambar)}
+.pos{font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*2.2);color:var(--mute);font-weight:500}
+.linha.podio .pos{color:var(--ambar);font-weight:600}
+.quem .nome{font-size:calc(var(--u)*2.15);font-weight:600;line-height:1.15;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quem .time{font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*1.35);color:var(--mute);
+  letter-spacing:.06em;margin-top:calc(var(--u)*.25)}
+.cli{font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*2);text-align:right;color:var(--texto)}
+.cli small{display:block;font-size:calc(var(--u)*1.15);color:var(--mute);letter-spacing:.1em}
+.val{font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*2.25);font-weight:600;
+  text-align:right;white-space:nowrap;min-width:calc(var(--u)*15)}
+
+/* barra inferior */
+.paginacao{display:flex;align-items:center;gap:calc(var(--u)*.7);margin-top:calc(var(--u)*1.6)}
+.ponto{height:calc(var(--u)*.42);flex:1;border-radius:calc(var(--u)*.3);background:var(--celula-apagada)}
+.ponto.ativo{background:var(--laranja)}
+.escala{display:flex;align-items:center;gap:calc(var(--u)*1.2);margin-top:calc(var(--u)*1.6);
+  font-family:"IBM Plex Mono",monospace;font-size:calc(var(--u)*1.3);color:var(--mute)}
+.escala .barra{flex:1;height:calc(var(--u)*.6);border-radius:calc(var(--u)*.4);
+  background:linear-gradient(90deg,var(--laranja),var(--ambar),var(--lima),var(--verde))}
+
+@media (max-aspect-ratio:11/10){
+  .corpo{grid-template-columns:1fr}
+  .bloco:last-child{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+  <div class="topo">
+    <div>
+      <div class="marca"><span class="pisca"></span><span id="periodo">Closing day</span> · times SC</div>
+      <h1>Acender o painel<br><em>vale voucher em dobro</em></h1>
+    </div>
+    <div class="metatopo">
+      Meta <b>R$ 4.000.000</b><br>
+      <span id="carimbo">—</span>
+    </div>
+  </div>
+
+  <div class="corpo">
+    <div class="bloco">
+      <div class="placar">
+        <div>
+          <div class="rotulo">Da meta</div>
+          <div class="pct" id="pct">0<span>%</span></div>
+        </div>
+        <div class="falta-box">
+          <div class="rotulo">Falta para dobrar o voucher</div>
+          <div class="falta" id="falta">—</div>
+        </div>
+      </div>
+
+      <div class="grade" id="grade"></div>
+      <div class="escala"><span>largada</span><span class="barra"></span><span>meta batida</span></div>
+
+      <div class="rodape-esq">
+        <div class="kpi"><div class="rotulo">Vendido</div><div class="num" id="realizado">—</div></div>
+        <div class="kpi"><div class="rotulo">Dias restantes</div><div class="num" id="dias">—</div></div>
+        <div class="kpi"><div class="rotulo">Ritmo/dia</div><div class="num" id="ritmo">—</div></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="cab-rank">
+        <div>
+          <h2>Quem está puxando</h2>
+          <div class="rotulo" style="margin-top:calc(var(--u)*.5)">Clientes únicos · valor acumulado</div>
+        </div>
+        <div class="rotulo" id="contador">—</div>
+      </div>
+      <div class="lista" id="lista"></div>
+      <div class="paginacao" id="paginacao"></div>
+    </div>
+  </div>
+
+<script>
+const D = {"meta": 4000000.0, "total": 1309871.85, "falta": 2690128.15, "pct": 32.75, "clientes": 71, "vendas": 72, "diasRestantes": 5, "ritmoNecessario": 538025.63, "periodo": "24/08 a 31/08", "atualizado": "27/08/2026 às 12:35", "ranking": [{"nome": "Claudio Ancai Mendes Junior", "time": "Legião Germânica", "clientes": 2, "valor": 141409.0}, {"nome": "Berato Representação", "time": "Comando Solar", "clientes": 9, "valor": 140175.21}, {"nome": "Alexandre Wienen", "time": "Comando Solar", "clientes": 5, "valor": 92652.1}, {"nome": "Diego Vendramin", "time": "Lobos do Sol", "clientes": 4, "valor": 81800.0}, {"nome": "Mario Augusto Freitas", "time": "Tubarões do Sol", "clientes": 2, "valor": 68173.1}, {"nome": "Nelykim Urbanski Barbi", "time": "Tubarões do Sol", "clientes": 3, "valor": 52930.87}, {"nome": "SOLTURI", "time": "SOLTURI", "clientes": 3, "valor": 48100.0}, {"nome": "Wesley Martins", "time": "Comando Solar", "clientes": 2, "valor": 44915.07}, {"nome": "Jaime Ribeiro", "time": "Furacões", "clientes": 1, "valor": 39600.0}, {"nome": "Luis Dalcanale", "time": "Lobos do Sol", "clientes": 2, "valor": 39000.0}, {"nome": "Thiago Parma", "time": "Raios de Fúria", "clientes": 2, "valor": 36962.0}, {"nome": "Ricardo Germano Mahlke", "time": "Furacões", "clientes": 4, "valor": 34324.45}, {"nome": "José Guilherme", "time": "Raios de Fúria", "clientes": 1, "valor": 33750.0}, {"nome": "Edvaldo Jose de Oliveira", "time": "Tubarões do Sol", "clientes": 2, "valor": 32819.59}, {"nome": "Pablo Maciel Eggert", "time": "Tubarões do Sol", "clientes": 2, "valor": 30695.66}, {"nome": "FRANCISCO DE CAMPOS", "time": "Comando Solar", "clientes": 2, "valor": 29965.07}, {"nome": "Cristhian", "time": "Comando Solar", "clientes": 2, "valor": 29459.0}, {"nome": "Gabriel Reina", "time": "Raios de Fúria", "clientes": 2, "valor": 29101.7}, {"nome": "Thomas Vyctor", "time": "Comando Solar", "clientes": 1, "valor": 28370.0}, {"nome": "Master sales", "time": "Lobos do Sol", "clientes": 3, "valor": 27720.0}, {"nome": "Élcio", "time": "Raios de Fúria", "clientes": 2, "valor": 24000.0}, {"nome": "Gustavo Tadra", "time": "Raios de Fúria", "clientes": 1, "valor": 22458.97}, {"nome": "ANDRE LUIS NASCIMENTO", "time": "Tubarões do Sol", "clientes": 1, "valor": 19519.0}, {"nome": "Alexandre Montresol", "time": "Tubarões do Sol", "clientes": 1, "valor": 19000.0}, {"nome": "Gustavo Schunke", "time": "Raios de Fúria", "clientes": 1, "valor": 18405.86}, {"nome": "Marcelo Torman", "time": "Lobos do Sol", "clientes": 2, "valor": 17967.38}, {"nome": "Luís Weiss", "time": "Lobos do Sol", "clientes": 1, "valor": 16487.38}, {"nome": "Everson Urbim", "time": "Furacões", "clientes": 1, "valor": 15800.0}, {"nome": "Paulo Roberto", "time": "Comando Solar", "clientes": 1, "valor": 15572.22}, {"nome": "Gabriel Ticaleah", "time": "Tubarões do Sol", "clientes": 1, "valor": 14637.9}, {"nome": "Danillo Almeida", "time": "Tubarões do Sol", "clientes": 1, "valor": 14373.0}, {"nome": "Edijane Gomes", "time": "Furacões", "clientes": 1, "valor": 13500.0}, {"nome": "Vanderlei", "time": "Furacões", "clientes": 1, "valor": 13500.0}, {"nome": "Dyan", "time": "Lobos do Sol", "clientes": 1, "valor": 12682.06}, {"nome": "Edson Carlos", "time": "Furacões", "clientes": 1, "valor": 10045.26}], "times": [{"nome": "Comando Solar", "clientes": 22, "valor": 381108.67}, {"nome": "Tubarões do Sol", "clientes": 13, "valor": 252149.12}, {"nome": "Lobos do Sol", "clientes": 13, "valor": 195656.82}, {"nome": "Raios de Fúria", "clientes": 9, "valor": 164678.53}, {"nome": "Legião Germânica", "clientes": 2, "valor": 141409.0}, {"nome": "Furacões", "clientes": 9, "valor": 126769.71}, {"nome": "SOLTURI", "clientes": 3, "valor": 48100.0}], "dias": [{"dia": "24/08", "valor": 713361.83}, {"dia": "25/08", "valor": 340684.34}, {"dia": "26/08", "valor": 255825.68}]};
+
+const brl  = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const brlF = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2});
+
+const PARADAS=[[255,106,19],[255,199,44],[180,214,46],[23,201,100]];
+function cor(t){
+  t=Math.min(Math.max(t,0),1);
+  const p=t*(PARADAS.length-1), i=Math.min(Math.floor(p),PARADAS.length-2), f=p-i;
+  const a=PARADAS[i], b=PARADAS[i+1];
+  return `rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')})`;
+}
+
+document.getElementById('periodo').textContent  = 'Closing day ' + D.periodo;
+document.getElementById('carimbo').textContent  = 'atualizado ' + D.atualizado;
+document.getElementById('falta').textContent    = brlF(D.falta);
+document.getElementById('realizado').textContent= brl(D.total);
+document.getElementById('dias').textContent     = D.diasRestantes + (D.diasRestantes===1?' dia':' dias');
+document.getElementById('ritmo').textContent    = brl(D.ritmoNecessario);
+
+const corAtual = cor(D.pct/100);
+document.getElementById('pct').style.color = corAtual;
+
+/* painel de 100 celulas (20 x 5) */
+const grade=document.getElementById('grade');
+const inteiras=Math.floor(D.pct), resto=D.pct-inteiras;
+for(let i=0;i<100;i++){
+  const c=document.createElement('div'); c.className='celula';
+  const l=document.createElement('span'); l.className='luz';
+  l.style.background=cor(i/99);
+  l.style.boxShadow=`0 0 calc(var(--u)*1.1) ${cor(i/99)}`;
+  c.appendChild(l); grade.appendChild(c);
+  setTimeout(()=>{
+    if(i<inteiras) c.classList.add('acesa');
+    else if(i===inteiras && resto>0.02){
+      c.classList.add('acesa'); l.style.clipPath=`inset(${(1-resto)*100}% 0 0 0)`;
+    }
+  }, 300 + i*16);
+}
+
+/* porcentagem animada */
+let n=0; const pctEl=document.getElementById('pct');
+(function passo(){ n=Math.min(n+D.pct/50,D.pct);
+  pctEl.innerHTML=n.toFixed(1).replace('.',',')+'<span>%</span>';
+  if(n<D.pct) requestAnimationFrame(passo); })();
+
+/* ranking rotativo */
+const POR_PAGINA=8, ROTACAO=14000;
+const paginas=[];
+for(let i=0;i<D.ranking.length;i+=POR_PAGINA) paginas.push(D.ranking.slice(i,i+POR_PAGINA));
+const lista=document.getElementById('lista'), pag=document.getElementById('paginacao');
+paginas.forEach(()=>{const p=document.createElement('div');p.className='ponto';pag.appendChild(p)});
+let atual=0;
+
+function render(){
+  const itens=paginas[atual]||[];
+  lista.innerHTML='';
+  itens.forEach((r,k)=>{
+    const idx=atual*POR_PAGINA+k;
+    const el=document.createElement('div');
+    el.className='linha'+(idx<3?' podio':'');
+    el.style.animationDelay=(k*60)+'ms';
+    el.innerHTML=`<div class="pos">${String(idx+1).padStart(2,'0')}</div>
+      <div class="quem"><div class="nome">${r.nome}</div><div class="time">${r.time}</div></div>
+      <div class="cli">${r.clientes}<small>clientes</small></div>
+      <div class="val">${brlF(r.valor)}</div>`;
+    lista.appendChild(el);
+  });
+  [...pag.children].forEach((p,i)=>p.classList.toggle('ativo',i===atual));
+  document.getElementById('contador').textContent =
+    `${D.ranking.length} vendedores · ${D.clientes} clientes`;
+}
+render();
+if(paginas.length>1) setInterval(()=>{atual=(atual+1)%paginas.length;render()},ROTACAO);
+
+/* recarrega sozinho pra pegar dado novo publicado */
+setTimeout(()=>location.reload(true), 5*60*1000);
+</script>
+</body>
+</html>
